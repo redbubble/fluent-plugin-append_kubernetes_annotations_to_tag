@@ -1,15 +1,15 @@
 require 'fluent/output'
 
 module Fluent
-  class Fluent::AppendKubernetesLabelsToTag < Fluent::Output
-    Fluent::Plugin.register_output('append_kubernetes_labels_to_tag', self)
+  class Fluent::AppendKubernetesAnnotationsToTag < Fluent::Output
+    Fluent::Plugin.register_output('append_kubernetes_annotations_to_tag', self)
 
-    config_param :labels, :string
+    config_param :annotations, :string
 
     def configure(conf)
       super
 
-      @labels = conf['labels'].split(',')
+      @annotations = conf['annotations'].split(',')
     end
 
     def emit(tag, es, chain)
@@ -36,8 +36,8 @@ module Fluent
     end
 
     def event(tag, time, record)
-      new_tag = if record.has_key? 'kubernetes' && record['kubernetes'].has_key? 'labels'
-        kubernetes_labels_tag_appender.append(tag, record['kubernetes']['labels'])
+      new_tag = if record.has_key? 'kubernetes' && record['kubernetes'].has_key? 'annotations'
+        kubernetes_annotations_tag_appender.append(tag, record['kubernetes']['annotations'])
       else
         tag
       end
@@ -49,8 +49,8 @@ module Fluent
       ]
     end
 
-    def kubernetes_labels_tag_appender
-      @kubernetes_labels_tag_appender ||= KubernetesLabelsTagAppender.new(@labels)
+    def kubernetes_annotations_tag_appender
+      @kubernetes_annotations_tag_appender ||= KubernetesAnnotationsTagAppender.new(@annotations)
     end
   end
 end
