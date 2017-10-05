@@ -1,4 +1,5 @@
 require 'fluent/output'
+require 'kubernetes_annotations_tag_appender'
 
 module Fluent
   class Fluent::AppendKubernetesAnnotationsToTag < Fluent::Output
@@ -14,39 +15,32 @@ module Fluent
 
     def emit(tag, es, chain)
       es.each do |time, record|
-        events(tag, time, record).each do |(tag, time, record)|
-          router.emit(tag, time, record)
-        end
+        new_tag = process_tag(tag, record)
+        next if new_tag == tag
+
+        router.emit(new_tag, time, record)
       end
 
       chain.next
+    rescue => exception
+      log.error "Failed to re-format docker record #{tag}"
+      log.error exception
+      log.error exception.backtrace
 
-    rescue
-      log.error "Failed to re-format docker record #{record}"
       # this seems to be a way to safely swallow records we don't know how to format
       ""
     end
 
     private
 
-    def events(tag, time, record)
-      [
-        event(tag, time, record)
-      ]
-    end
-
-    def event(tag, time, record)
-      new_tag = if record.has_key? 'kubernetes' && record['kubernetes'].has_key? 'annotations'
-        kubernetes_annotations_tag_appender.append(tag, record['kubernetes']['annotations'])
+    def process_tag(tag, record)
+      if record.has_key?('kubernetes') && record['kubernetes'].has_key?('annotations')
+        kubernetes_annotations_tag_appender.append(tag,
+                                                   record['kubernetes']['annotations'],
+                                                   record['kubernetes']['container_name'])
       else
         tag
       end
-
-      [
-        new_tag,
-        time,
-        record
-      ]
     end
 
     def kubernetes_annotations_tag_appender
