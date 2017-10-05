@@ -1,6 +1,6 @@
-# fluent-plugin-append_kubernetes_labels_to_tag
+# fluent-plugin-append_kubernetes_annotations_to_tag
 
-## A Fluent plugin to add kubernetes container labels to the log tag
+## A Fluent plugin to add kubernetes container annotations to the log tag
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ This plugin is intended for use with the [kuberenetes_metadata_filter](https://g
 In your Gemfile:
 
 ```ruby
-gem 'fluent-plugin-append-kubernetes-labels-to-tag'
+gem 'fluent-plugin-append-kubernetes-annotations-to-tag'
 ```
 
 In your Fluent config:
@@ -32,9 +32,9 @@ In your Fluent config:
 </filter>
 
 <filter **>
-  @type append_kubernetes_labels_to_tag
+  @type append_kubernetes_annotations_to_tag
   
-  labels ['log_destination']
+  annotations ['log_destination']
 </filter>
 ```
 

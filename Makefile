@@ -16,7 +16,7 @@ help:
 
 build: ## Create the docker image.
 	@echo "--- :wind_chime: Building :wind_chime:"
-	docker run --rm --workdir=/app -v `pwd`:/app redbubble/debian-ruby-2.3 gem build fluent-plugin-append-kubernetes-labels-to-tag.gemspec
+	docker run --rm --workdir=/app -v `pwd`:/app redbubble/debian-ruby-2.3 gem build fluent-plugin-append-kubernetes-annotations-to-tag.gemspec
 
 test: ## Run the app tests.
 	@echo "--- :fire: Testing :fire:"
