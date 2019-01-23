@@ -1,4 +1,4 @@
-.PHONY: all help trigger-deploy clean publish
+.PHONY: all help clean push test build
 
 export VERSION = 0.3.0
 
@@ -12,7 +12,7 @@ help:
 		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 	@echo ""
 
-build: ## Create the docker image.
+build: test ## Create the docker image.
 	@echo "--- :wind_chime: Building :wind_chime:"
 	docker run --rm --workdir=/app -v `pwd`:/app -e VERSION ruby:2.5 gem build fluent-plugin-append-kubernetes-annotations-to-tag.gemspec
 
@@ -20,7 +20,7 @@ test: ## Run the app tests.
 	@echo "--- :fire: Testing :fire:"
 	docker run --rm --workdir=/app -v `pwd`:/app -e VERSION -e BUNDLE_PATH=/app/gems ruby:2.5 script/docker-rspec.sh
 
-push: ## Publish the gem
+push: build ## Publish the gem
 	@echo "--- :fire: Pushing! :fire:"
 	docker run --rm --workdir=/app -v `pwd`:/app -e VERSION -e BUNDLE_PATH=/app/gems -it ruby:2.5 gem push fluent-plugin-append-kubernetes-annotations-to-tag-${VERSION}.gem
 
