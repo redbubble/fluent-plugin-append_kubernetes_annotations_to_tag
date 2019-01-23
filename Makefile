@@ -12,11 +12,11 @@ help:
 
 build: ## Create the docker image.
 	@echo "--- :wind_chime: Building :wind_chime:"
-	docker run --rm --workdir=/app -v `pwd`:/app redbubble/debian-ruby-2.3 gem build fluent-plugin-append-kubernetes-annotations-to-tag.gemspec
+	docker run --rm --workdir=/app -v `pwd`:/app ruby:2.5 gem build fluent-plugin-append-kubernetes-annotations-to-tag.gemspec
 
 test: ## Run the app tests.
 	@echo "--- :fire: Testing :fire:"
-	docker run --rm --workdir=/app -v `pwd`:/app -e BUNDLE_PATH=/app/gems redbubble/debian-ruby-2.3 script/docker-rspec.sh
+	docker run --rm --workdir=/app -v `pwd`:/app -e BUNDLE_PATH=/app/gems ruby:2.5 script/docker-rspec.sh
 
 push: ## Publish the gem
 	@echo "TODO: Make the gem publish work"
