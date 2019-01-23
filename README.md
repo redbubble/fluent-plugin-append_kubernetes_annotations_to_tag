@@ -9,8 +9,8 @@ This plugin is intended for use with the [kuberenetes_metadata_filter](https://g
 ## TODO
 
   * [ ] Open source this gem
-  * [ ] Stop relying on a Redbubble-owned Docker image for the build
-  * [ ] Publish to Rubygems.org
+  * [x] Stop relying on a Redbubble-owned Docker image for the build
+  * [x] Publish to Rubygems.org
   * [ ] Make repo public
 
 ## Usage
