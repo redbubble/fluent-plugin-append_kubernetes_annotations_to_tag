@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name          = "fluent-plugin-append-kubernetes-annotations-to-tag"
-  gem.version       = "0.2.0"
+  gem.version       = ENV["VERSION"]
   gem.authors       = ["Redbubble Delivery Engineering Team"]
   gem.email         = ["delivery-engineers@redbubble.com"]
   gem.description   = %q{Plugin to append Kubernetes annotations to Fluentd tags}

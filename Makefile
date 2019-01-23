@@ -1,5 +1,7 @@
 .PHONY: all help trigger-deploy clean publish
 
+export VERSION = 0.3.0
+
 help:
 	@printf "\n\033[32mEnvironment Variables\033[0m\n"
 	@cat $(MAKEFILE_LIST) | egrep -o "\\$$\{[a-zA-Z0-9_]*\}" | sort | uniq | \
@@ -12,11 +14,11 @@ help:
 
 build: ## Create the docker image.
 	@echo "--- :wind_chime: Building :wind_chime:"
-	docker run --rm --workdir=/app -v `pwd`:/app ruby:2.5 gem build fluent-plugin-append-kubernetes-annotations-to-tag.gemspec
+	docker run --rm --workdir=/app -v `pwd`:/app -e VERSION ruby:2.5 gem build fluent-plugin-append-kubernetes-annotations-to-tag.gemspec
 
 test: ## Run the app tests.
 	@echo "--- :fire: Testing :fire:"
-	docker run --rm --workdir=/app -v `pwd`:/app -e BUNDLE_PATH=/app/gems ruby:2.5 script/docker-rspec.sh
+	docker run --rm --workdir=/app -v `pwd`:/app -e VERSION -e BUNDLE_PATH=/app/gems ruby:2.5 script/docker-rspec.sh
 
 push: ## Publish the gem
 	@echo "TODO: Make the gem publish work"
