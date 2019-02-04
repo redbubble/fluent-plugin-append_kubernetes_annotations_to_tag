@@ -6,13 +6,6 @@
 
 This plugin is intended for use with the [kuberenetes_metadata_filter](https://github.com/fabric8io/fluent-plugin-kubernetes_metadata_filter) plugin. You will need to filter with `kubernetes_metadata_filter` so that your log records have the `kubernetes` attribute loaded with the required data.
 
-## TODO
-
-  * [ ] Open source this gem
-  * [x] Stop relying on a Redbubble-owned Docker image for the build
-  * [x] Publish to Rubygems.org
-  * [ ] Make repo public
-
 ## Usage
 
 In your Gemfile:
@@ -43,10 +36,10 @@ In your Fluent config:
 
 If you would like to contribute a fix or feature, here's what you should do:
 
-1. Raise an issue so we can discuss your change, and be sure you're not wasting your time
-1. Fork this repo (optional if you are a Redbubble engineer)
-2. Make your changes
-3. Submit a pull request
+1. Raise an issue so we can discuss your change
+1. Fork this repo
+1. Make your changes
+1. Submit a pull request
 
 ## Maintainers
 
