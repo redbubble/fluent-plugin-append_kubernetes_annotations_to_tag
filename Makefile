@@ -1,6 +1,7 @@
 .PHONY: all help clean push test build
 
 export VERSION = 0.3.0
+export AWS_DEFAULT_REGION = us-east-1
 
 define AWS_CLI_CMD
     docker container run --rm -i \
