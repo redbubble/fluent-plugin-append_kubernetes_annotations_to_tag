@@ -8,5 +8,5 @@ then
 else
     echo "--- \n:rubygems_api_key: ${GEM_HOST_API_KEY}" > ~/.gem/credentials
 	chmod 600 ~/.gem/credentials
-	timeout -k 30m 00s gem push fluent-plugin-append-kubernetes-annotations-to-tag-${VERSION}.gem
+	timeout -k 10m 00s gem push fluent-plugin-append-kubernetes-annotations-to-tag-${VERSION}.gem
 fi
