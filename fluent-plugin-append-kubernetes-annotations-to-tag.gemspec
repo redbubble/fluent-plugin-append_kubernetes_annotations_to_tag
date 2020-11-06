@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.description   = %q{Plugin to append Kubernetes annotations to Fluentd tags}
   gem.summary       = %q{Filter plugin to append certain Kubernetes annotations to the Fluentd tag}
   gem.homepage      = "https://github.com/redbubble/fluent-plugin-append_kubernetes_annotations_to_tag"
-  gem.license       = "LGPL-2.0"
+  gem.license       = "MIT"
 
   gem.files = Dir['lib/**/*'] + %w(Gemfile README.md fluent-plugin-append-kubernetes-annotations-to-tag.gemspec)
   gem.executables   = gem.files.grep(%r{^bin/}) { |f| File.basename(f) }
